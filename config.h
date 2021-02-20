@@ -19,7 +19,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "α'", "β'", "γ'", "δ'", "ε'", "στ'", "ζ'", "η'", "θ'" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -39,10 +39,10 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+ 	{ "[Φ]",      spiral },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
- 	{ "[@]",      spiral },
+	{ "[]=",      tile },    /* first entry is default */
  	{ "[\\]",      dwindle },
 };
 
@@ -53,6 +53,10 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define STACKKEYS(MOD,ACTION) \
+	{ MOD, XK_j,     ACTION##stack, {.i = INC(+1) } }, \
+	{ MOD, XK_k,     ACTION##stack, {.i = INC(-1) } }, \
+	{ MOD, XK_v,     ACTION##stack, {.i = 0 } }, \
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -70,8 +74,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_Return, spawn,          SHCMD("alacritty") },
 	{ MODKEY,			XK_w,	   spawn,          SHCMD("brave") },
 	//Navigation
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	STACKKEYS(MODKEY,                          focus)
+	STACKKEYS(MODKEY|ShiftMask,                push)
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_o,      shiftview,      {.i = -1} },
