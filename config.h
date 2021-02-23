@@ -39,11 +39,11 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
- 	{ "[Φ]",      spiral },
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+ 	{ "[Φ]",      spiral }, /* first entry is default */
 	{ "[M]",      monocle },
-	{ "[]=",      tile },    /* first entry is default */
- 	{ "[\\]",      dwindle },
+	{ "><>",      NULL },   /* no layout function means floating behavior */
+	{ "[]=",      tile },    
+// 	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -72,7 +72,13 @@ static Key keys[] = {
 	//Spawners
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,			XK_Return, spawn,          SHCMD("alacritty") },
-	{ MODKEY,			XK_w,	   spawn,          SHCMD("brave") },
+	{ MODKEY,			XK_semicolon, spawn,          SHCMD("brave") },
+	{ MODKEY,			XK_s,	   spawn,          SHCMD("flameshot gui") },
+	{ MODKEY,			XK_f,	   spawn,          SHCMD("alacritty -e ranger") },
+	{ MODKEY,			XK_t,	   spawn,          SHCMD("transmission-gtk") },
+	{ MODKEY,			XK_g,	   spawn,          SHCMD("xset r rate 200 50") },
+	{ MODKEY,			XK_i,	   spawn,          SHCMD("sxiv ~/Pictures/Schedule.png") },
+
 	//Navigation
 	STACKKEYS(MODKEY,                          focus)
 	STACKKEYS(MODKEY|ShiftMask,                push)
@@ -83,11 +89,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      shiftview,      {.i = +1} },
 	{ MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = +1} },
 	{ MODKEY,			XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_a,      setlayout,      {.v = &layouts[0]} },/* Fibonacci Layout*/
+	{ MODKEY|ShiftMask,             XK_a,      setlayout,      {.v = &layouts[1]} },/* Monocle*/
+	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[2]} },/* Floating*/
+	{ MODKEY|ShiftMask,             XK_z,      setlayout,      {.v = &layouts[3]} },/* Tile*/
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
