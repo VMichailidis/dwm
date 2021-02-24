@@ -11,11 +11,12 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#1d293e";  /*#005577*/
+static const char col_cyanout[]     = "#af1b3f";  /*#a188a6*/
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 }, /*bg = col_gray1*/
+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyanout  }, /*bg = col_cyan*/
 };
 
 /* tagging */
@@ -70,43 +71,46 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//Spawners
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,			XK_Return, spawn,          SHCMD("alacritty") },
-	{ MODKEY,			XK_semicolon, spawn,          SHCMD("brave") },
-	{ MODKEY,			XK_s,	   spawn,          SHCMD("flameshot gui") },
-	{ MODKEY,			XK_f,	   spawn,          SHCMD("alacritty -e ranger") },
-	{ MODKEY,			XK_t,	   spawn,          SHCMD("transmission-gtk") },
-	{ MODKEY,			XK_g,	   spawn,          SHCMD("xset r rate 200 50") },
-	{ MODKEY,			XK_i,	   spawn,          SHCMD("sxiv ~/Pictures/Schedule.png") },
+	{ MODKEY,                       XK_d,      	spawn,          {.v = dmenucmd } },
+	{ MODKEY,			XK_Return, 	spawn,          SHCMD("alacritty") },
+	{ MODKEY,			XK_semicolon,	spawn,          SHCMD("brave") },
+	{ MODKEY,			XK_s,	   	spawn,          SHCMD("flameshot gui") },
+	{ MODKEY,			XK_f,	   	spawn,          SHCMD("alacritty -e ranger") },
+	{ MODKEY,			XK_t,	   	spawn,          SHCMD("transmission-gtk") },
+	{ MODKEY,			XK_g,	   	spawn,          SHCMD("xset r rate 200 50") },
+	{ MODKEY,			XK_i,	   	spawn,          SHCMD("sxiv ~/Pictures/Schedule.png") },
 
 	//Navigation
-	STACKKEYS(MODKEY,                          focus)
-	STACKKEYS(MODKEY|ShiftMask,                push)
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_o,      shiftview,      {.i = -1} },
-	{ MODKEY|ShiftMask,             XK_o,      shifttag,       {.i = -1} },
-	{ MODKEY,                       XK_p,      shiftview,      {.i = +1} },
-	{ MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = +1} },
-	{ MODKEY,			XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_a,      setlayout,      {.v = &layouts[0]} },/* Fibonacci Layout*/
-	{ MODKEY|ShiftMask,             XK_a,      setlayout,      {.v = &layouts[1]} },/* Monocle*/
-	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[2]} },/* Floating*/
-	{ MODKEY|ShiftMask,             XK_z,      setlayout,      {.v = &layouts[3]} },/* Tile*/
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	STACKKEYS(MODKEY,                          	focus)
+	STACKKEYS(MODKEY|ShiftMask,                	push)
+	{ MODKEY,                       XK_h,      	setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,      	setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_o,      	shiftview,      {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_o,      	shifttag,       {.i = -1} },
+	{ MODKEY,                       XK_p,      	shiftview,      {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_p,      	shifttag,       {.i = +1} },
+	{ MODKEY,			XK_u,      	killclient,     {0} },
+	{ MODKEY,			XK_q,      	killclient,     {0} },
+	//Layouts
+	{ MODKEY,                       XK_a,      	setlayout,      {.v = &layouts[0]} },/* Fibonacci Layout*/
+	{ MODKEY|ShiftMask,             XK_a,      	setlayout,      {.v = &layouts[1]} },/* Monocle*/
+	{ MODKEY,                       XK_z,      	setlayout,      {.v = &layouts[2]} },/* Floating*/
+	{ MODKEY|ShiftMask,             XK_z,      	setlayout,      {.v = &layouts[3]} },/* Tile*/
+	{ MODKEY,                       XK_space,  	setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
+	//Navigate Tabs
+	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
+	TAGKEYS(                        XK_1,      	                0)
+	TAGKEYS(                        XK_2,      	                1)
+	TAGKEYS(                        XK_3,      	                2)
+	TAGKEYS(                        XK_4,      	                3)
+	TAGKEYS(                        XK_5,      	                4)
+	TAGKEYS(                        XK_6,      	                5)
+	TAGKEYS(                        XK_7,      	                6)
+	TAGKEYS(                        XK_8,      	                7)
+	TAGKEYS(                        XK_9,      	                8)
+	{ MODKEY|ShiftMask,             XK_q,      	quit,           {0} },
 };
 
 /* button definitions */
