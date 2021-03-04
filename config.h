@@ -83,14 +83,16 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run","-l", "20", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *bookmarks[] = {"/home/basil/.local/bin/bookmarks.sh", NULL };
+static const char *dmenu_shutdown[] = {"/home/basil/.local/bin/dmenu-shutdown.sh", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//Spawners
-	{ MODKEY,                       XK_u, 	spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_n, 	spawn,          {.v = bookmarks } },
+	{ MODKEY,                       XK_apostrophe,	spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_n, 		spawn,          {.v = bookmarks } },
+	{ MODKEY,                       XK_BackSpace,	spawn,          {.v = dmenu_shutdown} },
 	{ MODKEY,			XK_Return, 	spawn,          SHCMD("alacritty") },
 	{ MODKEY,			XK_semicolon,	spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,		XK_s,	   	spawn,          SHCMD("flameshot gui") },
@@ -149,5 +151,4 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-};
 
