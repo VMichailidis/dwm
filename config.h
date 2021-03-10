@@ -12,12 +12,12 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "roboto:size=11" };
 static const char dmenufont[]       = "roboto:size=11";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#4c5566"; /*#222222*/
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#092a48";  /*#005577*/
-static const char col_cyanout[]     = "#0a5c42";  /*#a188a6*/
+static const char col_cyan[]        = "#1d2021";  /*#092a48*/
+static const char col_cyanout[]     = "#689d6a";  /*#a188a6*/
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 }, /*bg = col_gray1*/
@@ -84,6 +84,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run","-l", "20", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *bookmarks[] = {"/home/basil/.local/bin/bookmarks.sh", NULL };
 static const char *dmenu_shutdown[] = {"/home/basil/.local/bin/dmenu-shutdown.sh", NULL };
+static const char *pick_color[] = {"/home/basil/.local/bin/pick-color.sh", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "shiftview.c"
@@ -92,7 +93,8 @@ static Key keys[] = {
 	//Spawners
 	{ MODKEY,                       XK_apostrophe,	spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_n, 		spawn,          {.v = bookmarks } },
-	{ MODKEY,                       XK_BackSpace,	spawn,          {.v = dmenu_shutdown} },
+	{ MODKEY|ShiftMask,             XK_BackSpace,	spawn,          {.v = dmenu_shutdown} },
+	{ MODKEY|ShiftMask,		XK_c,	   	spawn,          {.v = pick_color } },
 	{ MODKEY,			XK_Return, 	spawn,          SHCMD("alacritty") },
 	{ MODKEY,			XK_semicolon,	spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,		XK_s,	   	spawn,          SHCMD("flameshot gui") },
@@ -104,6 +106,18 @@ static Key keys[] = {
 	//Navigation
 	STACKKEYS(MODKEY,                          	focus)
 	STACKKEYS(MODKEY|ShiftMask,                	push)
+	TAGKEYS(                        XK_1,      	                0)
+	TAGKEYS(                        XK_2,      	                1)
+	TAGKEYS(                        XK_3,      	                2)
+	TAGKEYS(                        XK_4,      	                3)
+	TAGKEYS(                        XK_5,      	                4)
+	TAGKEYS(                        XK_6,      	                5)
+	TAGKEYS(                        XK_7,      	                6)
+	TAGKEYS(                        XK_8,      	                7)
+	TAGKEYS(                        XK_9,      	                8)
+	{ MODKEY|ShiftMask,             XK_q,      	quit,           {0} },
+	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_h,      	setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      	setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_o,      	shiftview,      {.i = -1} },
@@ -122,18 +136,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
 	//Navigate Tabs
-	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
-	TAGKEYS(                        XK_1,      	                0)
-	TAGKEYS(                        XK_2,      	                1)
-	TAGKEYS(                        XK_3,      	                2)
-	TAGKEYS(                        XK_4,      	                3)
-	TAGKEYS(                        XK_5,      	                4)
-	TAGKEYS(                        XK_6,      	                5)
-	TAGKEYS(                        XK_7,      	                6)
-	TAGKEYS(                        XK_8,      	                7)
-	TAGKEYS(                        XK_9,      	                8)
-	{ MODKEY|ShiftMask,             XK_q,      	quit,           {0} },
+	
 };
 
 /* button definitions */
@@ -151,4 +154,4 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-
+};
