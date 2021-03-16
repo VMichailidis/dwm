@@ -12,16 +12,16 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "roboto:size=11" };
 static const char dmenufont[]       = "roboto:size=11";
-static const char col_gray1[]       = "#4c5566"; /*#222222*/
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#1d2021";  /*#092a48*/
-static const char col_cyanout[]     = "#689d6a";  /*#a188a6*/
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 }, /*bg = col_gray1*/
-	[SchemeSel]  = { col_gray4, col_gray1,  col_cyanout  }, /*bg = col_cyan*/
+static char normbgcolor[]           = "#1d2021";
+static char normbordercolor[]       = "#1d2021";
+static char normfgcolor[]           = "#bbc2cf";
+static char selfgcolor[]            = "#1d2021";
+static char selbordercolor[]        = "#bbc2cF";
+static char selbgcolor[]            = "#bbc2cF";
+static char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
 /* tagging */
@@ -97,6 +97,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_c,	   	spawn,          {.v = pick_color } },
 	{ MODKEY,			XK_Return, 	spawn,          SHCMD("alacritty") },
 	{ MODKEY,			XK_semicolon,	spawn,          SHCMD("brave") },
+	{ MODKEY|ShiftMask,		XK_semicolon,	spawn,          SHCMD("brave --incognito") },
 	{ MODKEY|ShiftMask,		XK_s,	   	spawn,          SHCMD("flameshot gui") },
 	{ MODKEY,			XK_f,	   	spawn,          SHCMD("alacritty -e ranger") },
 	{ MODKEY,			XK_t,	   	spawn,          SHCMD("transmission-gtk") },
@@ -116,6 +117,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,      	                7)
 	TAGKEYS(                        XK_9,      	                8)
 	{ MODKEY|ShiftMask,             XK_q,      	quit,           {0} },
+	{ MODKEY,                       XK_F5,     	xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_h,      	setmfact,       {.f = -0.05} },
