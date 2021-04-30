@@ -10,14 +10,14 @@ static const unsigned int gappov    = 50;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "roboto:size=11" };
+static const char *fonts[]          = { "roboto:bold:size=11" };
 static const char dmenufont[]       = "roboto:size=11";
 static char normbgcolor[]           = "#1d2021";
 static char normbordercolor[]       = "#1d2021";
-static char normfgcolor[]           = "#bbc2cf";
+static char normfgcolor[]           = "#9da1aa";
 static char selfgcolor[]            = "#1d2021";
-static char selbordercolor[]        = "#bbc2cF";
-static char selbgcolor[]            = "#bbc2cF";
+static char selbordercolor[]        = "#9da1aa";
+static char selbgcolor[]            = "#9da1aa";
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -81,7 +81,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run","-l", "20", "-m", dmenumon, "-fn", dmenufont, NULL };
+static const char *dmenucmd[] = { "dmenu_run","-l", "20", "-m", dmenumon, NULL };
 static const char *bookmarks[] = {"/home/basil/.local/bin/bookmarks.sh", NULL };
 static const char *dmenu_shutdown[] = {"/home/basil/.local/bin/dmenu-shutdown.sh", NULL };
 static const char *pick_color[] = {"/home/basil/.local/bin/pick-color.sh", NULL };
@@ -92,13 +92,14 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//Spawners
 	{ MODKEY,                       XK_apostrophe,	spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_n, 		spawn,          {.v = bookmarks } },
+	{ MODKEY,                       XK_u, 		spawn,          {.v = bookmarks } },
 	{ MODKEY|ShiftMask,             XK_BackSpace,	spawn,          {.v = dmenu_shutdown} },
 	{ MODKEY|ShiftMask,		XK_c,	   	spawn,          {.v = pick_color } },
 	{ MODKEY,			XK_Return, 	spawn,          SHCMD("alacritty") },
 	{ MODKEY,			XK_semicolon,	spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,		XK_semicolon,	spawn,          SHCMD("brave --incognito") },
 	{ MODKEY|ShiftMask,		XK_s,	   	spawn,          SHCMD("flameshot gui") },
+	{ MODKEY,			XK_s,	   	spawn,          SHCMD("pavucontrol") },
 	{ MODKEY,			XK_f,	   	spawn,          SHCMD("alacritty -e ranger") },
 	{ MODKEY,			XK_t,	   	spawn,          SHCMD("transmission-gtk") },
 	{ MODKEY,			XK_d,	   	spawn,          SHCMD("discord") },
@@ -118,8 +119,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,      	                8)
 	{ MODKEY|ShiftMask,             XK_q,      	quit,           {0} },
 	{ MODKEY,                       XK_F5,     	xrdb,           {.v = NULL } },
-	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
+//	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
+//	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_h,      	setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      	setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_o,      	shiftview,      {.i = -1} },
@@ -133,8 +134,8 @@ static Key keys[] = {
 	//Layouts
 	{ MODKEY,                       XK_a,      	setlayout,      {.v = &layouts[0]} },/* Fibonacci Layout*/
 	{ MODKEY|ShiftMask,             XK_a,      	setlayout,      {.v = &layouts[1]} },/* Monocle*/
-	{ MODKEY,                       XK_z,      	setlayout,      {.v = &layouts[2]} },/* Floating*/
-	{ MODKEY|ShiftMask,             XK_z,      	setlayout,      {.v = &layouts[3]} },/* Tile*/
+	{ MODKEY,                       XK_z,      	setlayout,      {.v = &layouts[3]} },/* BStack*/
+	{ MODKEY|ShiftMask,             XK_z,      	setlayout,      {.v = &layouts[5]} },/* BStack Horizontal*/
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
 	//Navigate Tabs
