@@ -1,23 +1,24 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 40;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 40;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 50;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 50;       /* vert outer gap between windows and screen edge */
-static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "roboto:bold:size=11" };
-static const char dmenufont[]       = "roboto:size=11";
-static char normbgcolor[]           = "#1d2021";
-static char normbordercolor[]       = "#1d2021";
-static char normfgcolor[]           = "#9da1aa";
-static char selfgcolor[]            = "#1d2021";
-static char selbordercolor[]        = "#9da1aa";
-static char selbgcolor[]            = "#9da1aa";
+static const unsigned int borderpx  	= 5;        /* border pixel of windows */
+static const unsigned int floatborderpx = 0;        /* border pixel of windows */
+static const unsigned int snap      	= 32;       /* snap pixel */
+static const unsigned int gappih   	= 40;       /* horiz inner gap between windows */
+static const unsigned int gappiv   	= 40;       /* vert inner gap between windows */
+static const unsigned int gappoh   	= 50;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov   	= 50;       /* vert outer gap between windows and screen edge */
+static       int smartgaps         	= 0;        /* 1 means no outer gap when there is only one window */
+static const int showbar           	= 1;        /* 0 means no bar */
+static const int topbar            	= 1;        /* 0 means bottom bar */
+static const char *fonts[]         	= { "roboto:bold:size=11" };
+static const char dmenufont[]      	= "roboto:size=11";
+static char normbgcolor[]          	= "#1d2021";
+static char normbordercolor[]      	= "#1d2021";
+static char normfgcolor[]          	= "#9da1aa";
+static char selfgcolor[]           	= "#1d2021";
+static char selbordercolor[]       	= "#9da1aa";
+static char selbgcolor[]           	= "#9da1aa";
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -32,9 +33,9 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        5 },
+	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
 };
 
 /* layout(s) */
